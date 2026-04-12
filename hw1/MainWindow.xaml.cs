@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
@@ -28,6 +28,9 @@ namespace WpfApp1
         private bool stopPrimes = false;
         private bool stopFibonacci = false;
 
+        private ManualResetEventSlim eventPrimes = new ManualResetEventSlim(true);
+        private ManualResetEventSlim eventFibonacci = new ManualResetEventSlim(true);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +44,8 @@ namespace WpfApp1
                 
                 if (stopPrimes)
                     break;
+
+                eventPrimes.Wait();
 
                 for (int j = 2; j < i; j++)
                 {
@@ -65,10 +70,12 @@ namespace WpfApp1
             int a = 0;
             int b = 1;
 
-            while (a < upperBound)
+            while (true)
             {
                 if (stopFibonacci)
                     break;
+
+                eventFibonacci.Wait();
 
                 Dispatcher.Invoke(() =>
                 {
@@ -88,9 +95,7 @@ namespace WpfApp1
                 lowerBound = int.Parse(txtFrom.Text);
 
             if (txtTo.Text == null || string.IsNullOrWhiteSpace(txtTo.Text))
-            {
                 upperBound = 99999;
-            }
             else
                 upperBound = int.Parse(txtTo.Text);
 
@@ -99,8 +104,8 @@ namespace WpfApp1
                 GeneratePrimes(lowerBound, upperBound);
             });
 
-            primeNumbersThread.Start();
             stopPrimes = false;
+            primeNumbersThread.Start();
         }
 
         private void btnFibonacci_Click(object sender, RoutedEventArgs e)
@@ -110,11 +115,11 @@ namespace WpfApp1
                 GenerateFibonacci();
             });
 
-            fibonacciNumbersThread.Start();
             stopFibonacci = false;
+            fibonacciNumbersThread.Start();
         }
 
-        private void btnFibonacciStop(object sender, RoutedEventArgs e)
+        private void btnFibonacci_Stop(object sender, RoutedEventArgs e)
         {
             stopFibonacci = true;
         }
@@ -122,6 +127,26 @@ namespace WpfApp1
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             stopPrimes = true;
+        }
+
+        private void btnPrimePause_Click(object sender, RoutedEventArgs e)
+        {
+            eventPrimes.Reset();
+        }
+
+        private void btnPrimeResume_Click(object sender, RoutedEventArgs e)
+        {
+            eventPrimes.Set();
+        }
+
+        private void btnFibonacciPause_Click(object sender, RoutedEventArgs e)
+        {
+            eventFibonacci.Reset();
+        }
+
+        private void btnFibonacciResume_Click(object sender, RoutedEventArgs e)
+        {
+            eventFibonacci.Set();
         }
     }
 }
