@@ -148,5 +148,52 @@ namespace WpfApp1
         {
             eventFibonacci.Set();
         }
+
+        private void btnPrimeRestart_Click(object sender, RoutedEventArgs e)
+        {
+            eventPrimes.Set();
+            stopPrimes = true;
+            primeNumbersThread.Join();
+
+            Dispatcher.Invoke(() => lstPrimes.Items.Clear());
+
+            if (txtFrom.Text == null || string.IsNullOrWhiteSpace(txtFrom.Text))
+                lowerBound = 2;
+            else
+                lowerBound = int.Parse(txtFrom.Text);
+
+            if (txtTo.Text == null || string.IsNullOrWhiteSpace(txtTo.Text))
+                upperBound = 99999;
+            else
+                upperBound = int.Parse(txtTo.Text);
+
+            primeNumbersThread = new Thread(() =>
+            {
+                GeneratePrimes(lowerBound, upperBound);
+            });
+
+            stopPrimes = false;
+            eventPrimes.Set();
+            primeNumbersThread.Start();
+        }
+
+        private void btnFibonacciRestart_Click(object sender, RoutedEventArgs e)
+        {
+            eventFibonacci.Set();
+            stopFibonacci = true;
+            fibonacciNumbersThread.Join();
+
+            Dispatcher.Invoke(() => Fibonacci.Items.Clear());
+
+            stopFibonacci = false;
+            eventFibonacci.Set();
+
+            fibonacciNumbersThread = new Thread(() =>
+            {
+                GenerateFibonacci();
+            });
+
+            fibonacciNumbersThread.Start();
+        }
     }
 }
