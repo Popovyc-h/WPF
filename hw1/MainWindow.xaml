@@ -17,7 +17,8 @@
             <Button x:Name="btnStart" Content="Старт" Width="80" Margin="0,0,5,0" Click="btnStart_Click"/>
             <Button x:Name="btnStop" Content="Стоп" Width="80" Margin="0,0,5,0" Click="btnStop_Click"/>
             <Button x:Name="btnPrimePause" Content="Пауза" Width="80" Margin="0,0,5,0" Click="btnPrimePause_Click"/>
-            <Button x:Name="btnPrimeResume" Content="Відновити" Width="80" Click="btnPrimeResume_Click"/>
+            <Button x:Name="btnPrimeResume" Content="Відновити" Width="80" Margin="0,0,5,0" Click="btnPrimeResume_Click"/>
+            <Button x:Name="btnPrimeRestart" Content="Рестарт" Width="80" Click="btnPrimeRestart_Click"></Button>
         </StackPanel>
         <ListBox x:Name="lstPrimes" Height="80" Margin="0,0,0,10"/>
 
@@ -26,7 +27,8 @@
             <Button x:Name="btnFibonacci" Content="Старт" Width="80" Margin="0,0,5,0" Click="btnFibonacci_Click"/>
             <Button x:Name="btnFibonacciStop" Content="Стоп" Width="80" Margin="0,0,5,0" Click="btnFibonacci_Stop"/>
             <Button x:Name="btnFibonacciPause" Content="Пауза" Width="80" Margin="0,0,5,0" Click="btnFibonacciPause_Click"/>
-            <Button x:Name="btnFibonacciResume" Content="Відновити" Width="80" Click="btnFibonacciResume_Click"/>
+            <Button x:Name="btnFibonacciResume" Content="Відновити" Width="80" Margin="0,0,5,0" Click="btnFibonacciResume_Click"/>
+            <Button x:Name="btnFibonacciRestart" Content="Рестарт" Width="80" Click="btnFibonacciRestart_Click"></Button>
         </StackPanel>
         <ListBox x:Name="Fibonacci" Height="80"/>
 
