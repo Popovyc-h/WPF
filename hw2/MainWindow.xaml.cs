@@ -17,6 +17,7 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         public ProgressBar[] horses;
+        public List<int> results = new List<int>();
 
         public MainWindow()
         {
@@ -71,6 +72,9 @@ namespace WpfApp1
         private void btrStartRace_Click(object sender, RoutedEventArgs e)
         {
             horses = new ProgressBar[] { horse1, horse2, horse3, horse4, horse5 };
+            
+            results.Clear();
+            resultsList.Items.Clear();
 
             foreach (var h in horses)
                 h.Value = 0;
@@ -95,6 +99,16 @@ namespace WpfApp1
                             horses[index].Value = value;
                         });
                         Thread.Sleep(150);
+                    }
+                    results.Add(index + 1);
+                    
+                    if (results.Count() == 5)
+                    {
+                        Dispatcher.Invoke(() =>
+                        {
+                            for (int i = 0; i < results.Count(); i++)
+                                resultsList.Items.Add($"{i + 1} Місце - Кінь {results[i]}");
+                        });
                     }
                 });
 
