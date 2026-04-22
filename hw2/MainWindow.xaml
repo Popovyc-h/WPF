@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="494" Width="800">
+        Title="MainWindow" Height="625" Width="800">
 
     <StackPanel>
         
@@ -42,5 +42,10 @@
             <ProgressBar x:Name="horse5" Height="10" Margin="0,0,0,10" Minimum="0" Maximum="100"></ProgressBar>
         </StackPanel>
 
+        <StackPanel>
+            <ListBox x:Name="resultsList" Height="110">
+                
+            </ListBox>
+        </StackPanel>
     </StackPanel>
 </Window>
